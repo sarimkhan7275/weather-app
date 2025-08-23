@@ -9,14 +9,10 @@ const OPENWEATHER_URL = "https://api.openweathermap.org/data/2.5/weather";
 const FORECAST_URL = "https://api.openweathermap.org/data/2.5/forecast";
 
 
-// ✅ Current + Forecast (with cache)
 router.get("/:city/full", async (req, res) => {
   const city = req.params.city.toLowerCase();
 
   try {
-    // -----------------------------
-    // 1. Check cache for current
-    // -----------------------------
     let currentCache = await WeatherCache.findOne({ city, type: "current" });
     let currentWeather;
 
@@ -39,9 +35,6 @@ router.get("/:city/full", async (req, res) => {
       await WeatherCache.create({ city, type: "current", data: currentWeather });
     }
 
-    // -----------------------------
-    // 2. Check cache for forecast
-    // -----------------------------
     let forecastCache = await WeatherCache.findOne({ city, type: "forecast" });
     let forecast;
 
@@ -72,9 +65,6 @@ router.get("/:city/full", async (req, res) => {
       await WeatherCache.create({ city, type: "forecast", data: forecast });
     }
 
-    // -----------------------------
-    // 3. Return merged response
-    // -----------------------------
     res.json({
       city: currentWeather.city,
       country: currentWeather.country,
@@ -89,8 +79,6 @@ router.get("/:city/full", async (req, res) => {
 
 
 
-
-// ✅ Add city to favorites
 router.post("/:userId/favorites", async (req, res) => {
   const { userId } = req.params;
   console.log("req.body:", req.body);
@@ -119,7 +107,6 @@ router.post("/:userId/favorites", async (req, res) => {
 });
 
 
-// ✅ Remove city from favorites
 router.delete("/:userId/favorites/:city", async (req, res) => {
   const { userId, city } = req.params;
 
@@ -139,7 +126,6 @@ router.delete("/:userId/favorites/:city", async (req, res) => {
   }
 });
 
-// ✅ Get all favorite cities
 router.get("/:userId/favorites", async (req, res) => {
   const { userId } = req.params;
 
@@ -170,84 +156,4 @@ module.exports = router;
 
 
 
-
-
-
-
-// ✅ Current weather
-// router.get("/:city", async (req, res) => {
-//   const city = req.params.city.toLowerCase();
-
-//   try {
-//     // 1. Check cache
-//     let cache = await WeatherCache.findOne({ city, type: "current" });
-//     if (cache) {
-//       console.log("⚡ Serving from cache");
-//       return res.json(cache.data);
-//     }
-
-//     // 2. Fetch from OpenWeather API
-//     const response = await axios.get(OPENWEATHER_URL, {
-//       params: {
-//         q: city,
-//         appid: process.env.OPENWEATHER_KEY,
-//         units: "metric"
-//       }
-//     });
-
-//     const data = {
-//       city: response.data.name,
-//       country: response.data.sys.country,
-//       temperature: response.data.main.temp,
-//       description: response.data.weather[0].description,
-//       icon: response.data.weather[0].icon
-//     };
-
-//     // 3. Save to cache
-//     await WeatherCache.create({ city, type: "current", data });
-
-//     res.json(data);
-//   } catch (error) {
-//     res.status(400).json({ error: "City not found" });
-//   }
-// });
-
-
-// // ✅ 5-day forecast (daily summary)
-// router.get("/:city/forecast", async (req, res) => {
-//   const city = req.params.city;
-
-//   try {
-//     const response = await axios.get(FORECAST_URL, {
-//       params: {
-//         q: city,
-//         appid: process.env.OPENWEATHER_KEY,
-//         units: "metric"
-//       }
-//     });
-
-//     // Forecast data is every 3 hours → pick one entry per day (e.g., 12:00)
-//     const daily = {};
-//     response.data.list.forEach(item => {
-//       const date = item.dt_txt.split(" ")[0]; // "2025-08-22"
-//       const time = item.dt_txt.split(" ")[1]; // "12:00:00"
-//       if (time === "12:00:00") {
-//         daily[date] = {
-//           date,
-//           temperature: item.main.temp,
-//           description: item.weather[0].description,
-//           icon: item.weather[0].icon
-//         };
-//       }
-//     });
-
-//     res.json({
-//       city: response.data.city.name,
-//       country: response.data.city.country,
-//       forecast: Object.values(daily) // array of 5 days
-//     });
-//   } catch (error) {
-//     res.status(400).json({ error: "Forecast not available" });
-//   }
-// });
 
