@@ -6,6 +6,7 @@ import { SavedCities } from './saved-cities'
 import { useAppDispatch, useAppSelector } from "@/utils/hooks"
 import { add_fav_city_api, get_weather_data_api } from "@/redux/action"
 import { ArchiveAdd } from "iconsax-reactjs"
+import { Droplets, Thermometer, Wind } from "lucide-react"
 
 export default function WeatherDashboard() {
 
@@ -36,7 +37,7 @@ export default function WeatherDashboard() {
     }
   },[cityName])
 
-
+console.log(weatherData)
 
 
   const today = new Date();
@@ -80,7 +81,7 @@ export default function WeatherDashboard() {
           <div className='mt-10 ' >
             <h1 className='text-xl md:text-2xl font-bold text-center ' >Current Weather</h1>
             
-            <div className='flex justify-between items-center  mt-4 mx-auto rounded-2xl p-4 bg-white/15 backdrop-blur-2xl ' >
+            <div className='flex justify-between items-center  mt-4 rounded-2xl p-4  ' >
               <div>
                 <h3 className='text-center text-lg md:text-xl font-semibold ' >{weatherData?.current?.city}</h3>
                 <p className='text-center text-xs md:text-sm text-slate-200 font-normal ' >{formattedDate}</p>
@@ -94,6 +95,23 @@ export default function WeatherDashboard() {
                 <div className="cursor-pointer " onClick={addToFav} >
                   <ArchiveAdd size="30" color="#FFBF00" variant="Bold"/>
                 </div>
+              </div>
+            </div>
+
+            <div className="text-white  flex items-center justify-between  p-4" >
+              <div>
+                <div className="font-semibold flex justify-center gap-x-1 text-gray-300/70 text-sm items-center " ><Wind size={18} /> Wind Speed</div>
+                <div className="flex justify-center mt-1 font-semibold text-lg " >{weatherData?.current?.wind_speed}m/s</div>
+              </div>
+
+              <div>
+                <div className="font-semibold flex justify-center gap-x-1 text-gray-300/70 text-sm items-center " ><Thermometer size={18} /> Feels like</div>
+                <div className="flex justify-center mt-1 font-semibold text-lg " >{Math.floor(weatherData?.current?.feels_like)}° C</div>
+              </div>
+
+              <div>
+                <div className="font-semibold flex justify-center gap-x-1 text-gray-300/70 text-sm items-center " ><Droplets size={18} /> Humidity</div>
+                <div className="flex justify-center mt-1 font-semibold text-lg " >{weatherData?.current?.humidity}%</div>
               </div>
             </div>
           

@@ -10,6 +10,7 @@ const FORECAST_URL = "https://api.openweathermap.org/data/2.5/forecast";
 
 
 router.get("/:city/full", async (req, res) => {
+  console.log("hitting---------------")
   const city = req.params.city.toLowerCase();
 
   try {
@@ -24,12 +25,16 @@ router.get("/:city/full", async (req, res) => {
         params: { q: city, appid: process.env.OPENWEATHER_KEY, units: "metric" },
       });
 
+
       currentWeather = {
         city: currentResponse.data.name,
         country: currentResponse.data.sys.country,
         temperature: currentResponse.data.main.temp,
         description: currentResponse.data.weather[0].description,
         icon: currentResponse.data.weather[0].icon,
+        feels_like : currentResponse.data.main.feels_like,
+        humidity : currentResponse.data.main.humidity,
+        wind_speed : currentResponse.data.wind.speed
       };
 
       await WeatherCache.create({ city, type: "current", data: currentWeather });
@@ -83,9 +88,6 @@ router.post("/:userId/favorites", async (req, res) => {
   const { userId } = req.params;
   console.log("req.body:", req.body);
   const { city } = req.body;
-
-  
-
 
   try {
     let userCities = await UserCities.findOne({ userId });
