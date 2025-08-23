@@ -20,7 +20,6 @@ export default function WeatherDashboard() {
     dispatch(add_fav_city_api({city : cityName}))
   }
 
-
   useEffect(()=>{
     let interval;
     interval = setTimeout(()=>{
@@ -32,6 +31,7 @@ export default function WeatherDashboard() {
 
   useEffect(()=>{
     if(cityName.length>0){
+
       dispatch(get_weather_data_api(cityName))
     }
   },[cityName])
@@ -53,7 +53,7 @@ export default function WeatherDashboard() {
           <Input value={query} onChange={(e)=>setQuery(e.target.value)} placeholder='Search cities' className='w-full bg-white/20 h-[40px] backdrop-blur-2xl outline-none border-none focus-visible:ring-0 rounded-4xl ' />
         </div>
         <div>
-          <SavedCities/>
+          <SavedCities setCityName={setQuery} />
         </div>
       </div>
 

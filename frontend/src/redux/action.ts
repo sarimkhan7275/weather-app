@@ -27,7 +27,6 @@ if (!userId) {
 
 export const get_weather_data_api = (city: string) => async (dispatch: AppDispatch) => {
   dispatch({ type: GET_WEATHER_DATA_LOADING });
-
   try {
     const res = await axios.get(`${BASE_URL}/api/weather/${city}/full`);
 

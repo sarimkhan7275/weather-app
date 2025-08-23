@@ -26,7 +26,7 @@ export const Reducer = (state=initialState, {type, payload} : any) => {
             return {...state , weatherData : payload, weatherData_loading : false, weatherData_error : false }
         }
         case GET_WEATHER_DATA_ERROR : {
-            return {...state, weatherData_loading : false, weatherData_error : true }
+            return {...state, weatherData_loading : false, weatherData_error : true, weatherData : null }
         }
 
         // ADD TO FAV CITY
