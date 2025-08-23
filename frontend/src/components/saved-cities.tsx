@@ -7,7 +7,6 @@ import { del_fav_city_api, get_fav_city_api } from "@/redux/action"
 import { useAppDispatch, useAppSelector } from "@/utils/hooks"
 import { HeartAdd, Trash } from "iconsax-reactjs"
 import { useEffect } from "react"
-import Loader from "./loader"
 
 export const SavedCities = ({ setCityName }: { setCityName: (cityName: string) => void }) => {
 

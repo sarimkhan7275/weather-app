@@ -57,7 +57,7 @@ export const get_fav_city_api = () => async (dispatch: AppDispatch) => {
 export const add_fav_city_api = (data: any) => async (dispatch: AppDispatch) => {
   dispatch({ type: ADD_FAV_CITY_LOADING });
   try {
-    const res = await axios.post(`${BASE_URL}/api/weather/${userId}/favorites`,data);
+    await axios.post(`${BASE_URL}/api/weather/${userId}/favorites`,data);
     dispatch(get_fav_city_api());
     dispatch({type: ADD_FAV_CITY_SUCCESS});
     toast("Added to favourite city.")
@@ -73,7 +73,7 @@ export const add_fav_city_api = (data: any) => async (dispatch: AppDispatch) => 
 export const del_fav_city_api = (city: any) => async (dispatch: AppDispatch) => {
   dispatch({ type: DEL_FAV_CITY_LOADING });
   try {
-    const res = await axios.delete(`${BASE_URL}/api/weather/${userId}/favorites/${city}`);
+    await axios.delete(`${BASE_URL}/api/weather/${userId}/favorites/${city}`);
     dispatch(get_fav_city_api());
     dispatch({type: DEL_FAV_CITY_SUCCESS});
     toast(`${city} city remove from favourite`)
