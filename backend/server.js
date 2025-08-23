@@ -14,7 +14,7 @@ app.use(express.json());
 app.use("/api/weather", require("./routes/weather.js"));
 
 
-// MongoDB Connection
+// MongoDB Connections
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     console.log(" MongoDB connected");
