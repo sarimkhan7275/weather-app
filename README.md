@@ -35,7 +35,6 @@
 git clone https://github.com/sarimkhan7275/weather-app.git
 cd weather-app
 
-
 ## 🛠️ Technical Approach
 Built a MERN stack app with a React frontend and Node/Express backend. Integrated OpenWeatherMap API, added MongoDB for caching and user preferences, and ensured responsive UI. Implemented error handling and optimized API usage with caching.
 

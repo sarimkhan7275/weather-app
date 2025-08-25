@@ -18,7 +18,7 @@ router.get("/:city/full", async (req, res) => {
     let currentWeather;
 
     if (currentCache) {
-      console.log("⚡ Serving current weather from cache");
+      console.log("Serving current weather from cache");
       currentWeather = currentCache.data;
     } else {
       const currentResponse = await axios.get(OPENWEATHER_URL, {
@@ -44,7 +44,7 @@ router.get("/:city/full", async (req, res) => {
     let forecast;
 
     if (forecastCache) {
-      console.log("⚡ Serving forecast from cache");
+      console.log(" Serving forecast from cache");
       forecast = forecastCache.data;
     } else {
       const forecastResponse = await axios.get(FORECAST_URL, {
@@ -77,7 +77,7 @@ router.get("/:city/full", async (req, res) => {
       forecast,
     });
   } catch (error) {
-    console.error("❌ Weather error:", error.message);
+    console.error("Weather error:", error.message);
     res.status(400).json({ error: "Weather data not available" });
   }
 });

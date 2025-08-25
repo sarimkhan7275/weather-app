@@ -46,7 +46,7 @@ console.log(weatherData)
   const formattedDate = `Today ${day} ${month}`;
 
   return (
-    <div className="text-white p-3 md:p-6 w-full md:w-[80%] h-full md:h-[calc(100vh-50px)] absolute top-0 transform -translate-x-1/2 left-1/2 rounded-b-2xl backdrop-blur-xl " style={{boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px"}} >
+    <div className="text-white p-3 md:p-6 w-full md:w-[80%] h-[800px] md:h-[calc(100vh-50px)]  absolute top-0 transform -translate-x-1/2 left-1/2 rounded-b-2xl backdrop-blur-xl " style={{boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px"}} >
       {/* Header */}
       <div className="h-[40px] md:h-[60px] flex justify-between  items-center" >
         <div className="h-full " ><img className="h-full w-full object-contain " src="/cloudy.png" alt="weather-image" /></div>
@@ -105,12 +105,12 @@ console.log(weatherData)
               </div>
 
               <div>
-                <div className="font-semibold flex justify-center gap-x-1 text-gray-300/70 text-sm items-center " ><Thermometer size={18} /> Feels like</div>
+                <div className="font-semibold flex justify-center gap-x-1 text-gray-300 text-sm items-center " ><Thermometer size={18} /> Feels like</div>
                 <div className="flex justify-center mt-1 font-semibold text-lg " >{Math.floor(weatherData?.current?.feels_like)}° C</div>
               </div>
 
               <div>
-                <div className="font-semibold flex justify-center gap-x-1 text-gray-300/70 text-sm items-center " ><Droplets size={18} /> Humidity</div>
+                <div className="font-semibold flex justify-center gap-x-1 text-gray-300 text-sm items-center " ><Droplets size={18} /> Humidity</div>
                 <div className="flex justify-center mt-1 font-semibold text-lg " >{weatherData?.current?.humidity}%</div>
               </div>
             </div>
